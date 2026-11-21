@@ -11,6 +11,7 @@ from __future__ import annotations
 import hashlib
 import json
 import shutil
+from dataclasses import replace
 from pathlib import Path
 
 from langchain_core.documents import Document
@@ -42,6 +43,13 @@ class StudyIndex:
         self.settings = settings or Settings()
         self.name = name
         self.dir = self.settings.collection_dir(name)
+        # A course must keep using the embedding model it was built with, otherwise
+        # the stored vectors and new queries won't match. Read that first.
+        mpath = self.dir / MANIFEST
+        if mpath.exists():
+            saved = json.loads(mpath.read_text()).get("embed_model")
+            if saved and embeddings is None:
+                self.settings = replace(self.settings, embed_model=saved)
         self.embeddings = embeddings or default_embeddings(self.settings)
         self.splitter = RecursiveCharacterTextSplitter(
             chunk_size=self.settings.chunk_size, chunk_overlap=self.settings.chunk_overlap
@@ -144,6 +152,19 @@ class StudyIndex:
         shutil.rmtree(self.dir, ignore_errors=True)
         self._vs, self._bm25, self._chunks = None, None, []
         self.manifest = {"embed_model": self.settings.embed_model, "files": {}}
+
+    @property
+    def embed_model(self) -> str:
+        return self.manifest.get("embed_model", self.settings.embed_model)
+
+    def sample(self, n: int, sources: list[str] | None = None) -> list[Document]:
+        """Up to n chunks spread evenly through the selected files (for whole-file summaries/quizzes)."""
+        pool = [d for d in self._chunks if not sources or d.metadata.get("source") in sources]
+        pool.sort(key=lambda d: (d.metadata.get("source", ""), d.metadata.get("number", 0)))
+        if len(pool) <= n:
+            return pool
+        step = len(pool) / n
+        return [pool[int(i * step)] for i in range(n)]
 
     # ---------- searching ----------
     def search(self, query: str, k: int | None = None, sources: list[str] | None = None) -> list[Document]:

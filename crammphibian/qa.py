@@ -28,14 +28,21 @@ PROMPT = ChatPromptTemplate.from_messages(
 )
 
 
-def make_llm(settings: Settings) -> BaseChatModel:
+def make_llm(settings: Settings, json_mode: bool = False, temperature: float = 0.1) -> BaseChatModel:
+    """json_mode asks the model to reply with valid JSON (used for quizzes and flashcards)."""
     if settings.llm_provider == "openai":
         from langchain_openai import ChatOpenAI  # optional extra: pip install "crammphibian[cloud]"
 
-        return ChatOpenAI(model=settings.openai_model, temperature=0.1)
+        kwargs = {"model_kwargs": {"response_format": {"type": "json_object"}}} if json_mode else {}
+        return ChatOpenAI(model=settings.openai_model, temperature=temperature, **kwargs)
     from langchain_ollama import ChatOllama
 
-    return ChatOllama(model=settings.llm_model, base_url=settings.ollama_url, temperature=0.1)
+    return ChatOllama(
+        model=settings.llm_model,
+        base_url=settings.ollama_url,
+        temperature=temperature,
+        **({"format": "json"} if json_mode else {}),
+    )
 
 
 def format_context(docs: list[Document]) -> str:

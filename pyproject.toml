@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "crammphibian"
-version = "0.1.0"
+version = "0.2.0"
 description = "Ask questions across your lecture PDFs and PowerPoints, answered locally with citations."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -17,7 +17,7 @@ dependencies = [
     "rank-bm25>=0.2.2",
     "pypdf>=4",
     "python-pptx>=1.0",
-    "streamlit>=1.36",
+    "streamlit>=1.40",
 ]
 
 [project.optional-dependencies]
@@ -30,3 +30,6 @@ cramm = "crammphibian.cli:main"
 
 [tool.setuptools]
 packages = ["crammphibian"]
+
+[tool.setuptools.package-data]
+crammphibian = ["assets/*"]

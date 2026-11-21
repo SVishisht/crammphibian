@@ -19,6 +19,11 @@ def _run_ui() -> None:
     sys.argv = ["streamlit", "run", str(app), "--browser.gatherUsageStats=false",
         "--server.address=localhost",
         "--client.toolbarMode=minimal",
+        "--theme.base=light",
+        "--theme.primaryColor=#3FA34D",
+        "--theme.backgroundColor=#FBFDF8",
+        "--theme.secondaryBackgroundColor=#EEF6EA",
+        "--theme.textColor=#1F2D1F",
     ]
     sys.exit(stcli.main())
 

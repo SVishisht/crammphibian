@@ -39,3 +39,13 @@ class Settings:
     def collection_dir(self, name: str) -> Path:
         safe = "".join(c if c.isalnum() or c in "-_ " else "_" for c in name).strip() or "default"
         return self.data_dir / safe
+
+
+# Smallest models that still work well enough: ~45 MB + ~400 MB, under 1 GB of RAM.
+LITE_EMBED_MODEL = "all-minilm"
+LITE_LLM_MODEL = "qwen2.5:0.5b"
+EMBED_HINTS = ("embed", "minilm", "bge", "e5-", "gte")
+
+
+def is_embed_model(name: str) -> bool:
+    return any(h in name.lower() for h in EMBED_HINTS)
