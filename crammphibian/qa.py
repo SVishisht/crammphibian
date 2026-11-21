@@ -30,7 +30,7 @@ PROMPT = ChatPromptTemplate.from_messages(
 
 def make_llm(settings: Settings) -> BaseChatModel:
     if settings.llm_provider == "openai":
-        from langchain_openai import ChatOpenAI  # optional extra: pip install "study-search[cloud]"
+        from langchain_openai import ChatOpenAI  # optional extra: pip install "crammphibian[cloud]"
 
         return ChatOpenAI(model=settings.openai_model, temperature=0.1)
     from langchain_ollama import ChatOllama

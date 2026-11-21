@@ -1,4 +1,4 @@
-# 📚 Study Search
+# 🐸 Crammphibian
 
 Ask questions across all your lecture PDFs and PowerPoint slides, and get answers
 **with page and slide citations**, running entirely on your own computer.
@@ -46,9 +46,11 @@ Your browser opens at http://localhost:8501.
 There's also a command line:
 
 ```bash
-.venv/bin/study-search index "BIO 101" lecture1.pdf lecture2.pptx
-.venv/bin/study-search ask "BIO 101" "What is oxidative phosphorylation?"
+.venv/bin/crammphibian index "BIO 101" lecture1.pdf lecture2.pptx
+.venv/bin/crammphibian ask "BIO 101" "What is oxidative phosphorylation?"
 ```
+
+`cramm` works as a short alias for `crammphibian`.
 
 ## Settings
 
@@ -56,9 +58,9 @@ All optional, set as environment variables before starting:
 
 | Variable | Default | What it does |
 |---|---|---|
-| `STUDYSEARCH_LLM_MODEL` | `llama3.2:3b` | Any Ollama chat model. Use `llama3.1:8b` or `qwen2.5:7b` for better answers if you have 16 GB RAM. You can also switch in the sidebar. |
-| `STUDYSEARCH_EMBED_MODEL` | `nomic-embed-text` | Ollama embedding model. Changing it means re-adding your files. |
-| `STUDYSEARCH_HOME` | `~/.studysearch` | Where course indexes are saved. |
+| `CRAMMPHIBIAN_LLM_MODEL` | `llama3.2:3b` | Any Ollama chat model. Use `llama3.1:8b` or `qwen2.5:7b` for better answers if you have 16 GB RAM. You can also switch in the sidebar. |
+| `CRAMMPHIBIAN_EMBED_MODEL` | `nomic-embed-text` | Ollama embedding model. Changing it means re-adding your files. |
+| `CRAMMPHIBIAN_HOME` | `~/.crammphibian` | Where course indexes are saved. |
 | `OLLAMA_HOST` | `http://localhost:11434` | Where Ollama is running. |
 
 **Optional cloud model.** If your laptop is slow, you can have answers written by
@@ -88,7 +90,7 @@ PDF pages / slides ──► text per page/slide ──► ~1000-char chunks
                  local LLM (Ollama) via LangChain ──► answer with [n] citations
 ```
 
-Code: `studysearch/loaders.py` (PDF/PPTX parsing), `index.py` (hybrid search,
+Code: `crammphibian/loaders.py` (PDF/PPTX parsing), `index.py` (hybrid search,
 saved per course), `qa.py` (RAG prompt), `app.py` (Streamlit UI), `cli.py`.
 
 ## Development

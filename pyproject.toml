@@ -3,7 +3,7 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "study-search"
+name = "crammphibian"
 version = "0.1.0"
 description = "Ask questions across your lecture PDFs and PowerPoints, answered locally with citations."
 readme = "README.md"
@@ -25,7 +25,8 @@ cloud = ["langchain-openai>=0.2"]
 dev = ["pytest>=8", "reportlab>=4"]
 
 [project.scripts]
-study-search = "studysearch.cli:main"
+crammphibian = "crammphibian.cli:main"
+cramm = "crammphibian.cli:main"
 
 [tool.setuptools]
-packages = ["studysearch"]
+packages = ["crammphibian"]

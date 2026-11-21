@@ -1,10 +1,10 @@
 import pytest
 from langchain_core.language_models import FakeListChatModel
 
-from studysearch.config import Settings
-from studysearch.index import StudyIndex
-from studysearch.loaders import UnsupportedFile, load_file
-from studysearch.qa import format_context, search_query, stream_answer
+from crammphibian.config import Settings
+from crammphibian.index import StudyIndex
+from crammphibian.loaders import UnsupportedFile, load_file
+from crammphibian.qa import format_context, search_query, stream_answer
 
 from .conftest import HashEmbeddings
 

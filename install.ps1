@@ -1,11 +1,11 @@
-# Study Search installer for Windows.
+# Crammphibian installer for Windows.
 # Usage (in PowerShell, inside this folder):
 #   powershell -ExecutionPolicy Bypass -File install.ps1
 $ErrorActionPreference = "Stop"
 Set-Location $PSScriptRoot
 
-$EmbedModel = if ($env:STUDYSEARCH_EMBED_MODEL) { $env:STUDYSEARCH_EMBED_MODEL } else { "nomic-embed-text" }
-$LlmModel   = if ($env:STUDYSEARCH_LLM_MODEL)   { $env:STUDYSEARCH_LLM_MODEL }   else { "llama3.2:3b" }
+$EmbedModel = if ($env:CRAMMPHIBIAN_EMBED_MODEL) { $env:CRAMMPHIBIAN_EMBED_MODEL } else { "nomic-embed-text" }
+$LlmModel   = if ($env:CRAMMPHIBIAN_LLM_MODEL)   { $env:CRAMMPHIBIAN_LLM_MODEL }   else { "llama3.2:3b" }
 
 $py = $null
 foreach ($c in @("py -3", "python")) {
@@ -23,7 +23,7 @@ if (-not $py) {
 Write-Host "-> Creating a private Python environment in .venv"
 & $py[0] $py[1..9] -m venv .venv
 & .\.venv\Scripts\python.exe -m pip install --quiet --upgrade pip
-Write-Host "-> Installing Study Search (a minute or two the first time)"
+Write-Host "-> Installing Crammphibian (a minute or two the first time)"
 & .\.venv\Scripts\python.exe -m pip install --quiet -e .
 
 if (Get-Command ollama -ErrorAction SilentlyContinue) {
@@ -37,6 +37,6 @@ if (Get-Command ollama -ErrorAction SilentlyContinue) {
     Write-Host "  2. Then run:  ollama pull $EmbedModel ; ollama pull $LlmModel"
 }
 
-Set-Content -Path start.bat -Value "@echo off`r`ncd /d %~dp0`r`n.venv\Scripts\study-search.exe %*"
+Set-Content -Path start.bat -Value "@echo off`r`ncd /d %~dp0`r`n.venv\Scripts\crammphibian.exe %*"
 Write-Host ""
 Write-Host "Done. Start it any time by double-clicking start.bat" -ForegroundColor Green

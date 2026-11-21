@@ -1,4 +1,4 @@
-"""Settings for Study Search.
+"""Settings for Crammphibian.
 
 Everything can be overridden with environment variables so the tool works
 with no config file at all.
@@ -19,17 +19,17 @@ def _env(name: str, default: str) -> str:
 class Settings:
     # Where indexes are stored. One sub-folder per "collection" (e.g. a course).
     data_dir: Path = field(
-        default_factory=lambda: Path(_env("STUDYSEARCH_HOME", str(Path.home() / ".studysearch")))
+        default_factory=lambda: Path(_env("CRAMMPHIBIAN_HOME", str(Path.home() / ".crammphibian")))
     )
 
     # Local models served by Ollama (https://ollama.com).
     ollama_url: str = field(default_factory=lambda: _env("OLLAMA_HOST", "http://localhost:11434"))
-    embed_model: str = field(default_factory=lambda: _env("STUDYSEARCH_EMBED_MODEL", "nomic-embed-text"))
-    llm_model: str = field(default_factory=lambda: _env("STUDYSEARCH_LLM_MODEL", "llama3.2:3b"))
+    embed_model: str = field(default_factory=lambda: _env("CRAMMPHIBIAN_EMBED_MODEL", "nomic-embed-text"))
+    llm_model: str = field(default_factory=lambda: _env("CRAMMPHIBIAN_LLM_MODEL", "llama3.2:3b"))
 
     # "ollama" (fully offline) or "openai" (any OpenAI-compatible API, needs OPENAI_API_KEY).
-    llm_provider: str = field(default_factory=lambda: _env("STUDYSEARCH_LLM_PROVIDER", "ollama"))
-    openai_model: str = field(default_factory=lambda: _env("STUDYSEARCH_OPENAI_MODEL", "gpt-4o-mini"))
+    llm_provider: str = field(default_factory=lambda: _env("CRAMMPHIBIAN_LLM_PROVIDER", "ollama"))
+    openai_model: str = field(default_factory=lambda: _env("CRAMMPHIBIAN_OPENAI_MODEL", "gpt-4o-mini"))
 
     # Chunking and retrieval.
     chunk_size: int = 1000

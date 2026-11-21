@@ -1,8 +1,8 @@
 """Command line entry points.
 
-  study-search                      open the app in your browser
-  study-search index COURSE FILES…  index files without the UI
-  study-search ask COURSE "question"
+  crammphibian                      open the app in your browser
+  crammphibian index COURSE FILES…  index files without the UI
+  crammphibian ask COURSE "question"
 """
 
 from __future__ import annotations
@@ -28,7 +28,7 @@ def main(argv: list[str] | None = None) -> None:
     if not argv or argv[0] in ("ui", "app"):
         _run_ui()
 
-    p = argparse.ArgumentParser(prog="study-search")
+    p = argparse.ArgumentParser(prog="crammphibian")
     sub = p.add_subparsers(dest="cmd", required=True)
     pi = sub.add_parser("index", help="add files to a course")
     pi.add_argument("course")

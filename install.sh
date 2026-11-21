@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# Study Search installer for macOS / Linux.  Usage:  ./install.sh
+# Crammphibian installer for macOS / Linux.  Usage:  ./install.sh
 set -euo pipefail
 cd "$(dirname "$0")"
 
-EMBED_MODEL="${STUDYSEARCH_EMBED_MODEL:-nomic-embed-text}"
-LLM_MODEL="${STUDYSEARCH_LLM_MODEL:-llama3.2:3b}"
+EMBED_MODEL="${CRAMMPHIBIAN_EMBED_MODEL:-nomic-embed-text}"
+LLM_MODEL="${CRAMMPHIBIAN_LLM_MODEL:-llama3.2:3b}"
 
 PY=""
 for c in python3.13 python3.12 python3.11 python3.10 python3; do
@@ -20,7 +20,7 @@ fi
 echo "→ Creating a private Python environment in .venv (using $PY)"
 "$PY" -m venv .venv
 .venv/bin/python -m pip install --quiet --upgrade pip
-echo "→ Installing Study Search (a minute or two the first time)"
+echo "→ Installing Crammphibian (a minute or two the first time)"
 .venv/bin/python -m pip install --quiet -e .
 
 if command -v ollama >/dev/null 2>&1; then
@@ -36,7 +36,7 @@ fi
 
 cat > start.sh <<'EOF'
 #!/usr/bin/env bash
-cd "$(dirname "$0")" && exec .venv/bin/study-search "$@"
+cd "$(dirname "$0")" && exec .venv/bin/crammphibian "$@"
 EOF
 chmod +x start.sh
 

@@ -1,4 +1,4 @@
-"""Streamlit UI. Run with:  study-search   (or: streamlit run studysearch/app.py)"""
+"""Streamlit UI. Run with:  crammphibian   (or: streamlit run crammphibian/app.py)"""
 
 from __future__ import annotations
 
@@ -7,13 +7,13 @@ from pathlib import Path
 
 import streamlit as st
 
-from studysearch.config import Settings
-from studysearch.index import StudyIndex
-from studysearch.loaders import UnsupportedFile
-from studysearch.ollama_check import has_model, installed_models
-from studysearch.qa import make_llm, search_query, stream_answer
+from crammphibian.config import Settings
+from crammphibian.index import StudyIndex
+from crammphibian.loaders import UnsupportedFile
+from crammphibian.ollama_check import has_model, installed_models
+from crammphibian.qa import make_llm, search_query, stream_answer
 
-st.set_page_config(page_title="Study Search", page_icon="📚", layout="wide")
+st.set_page_config(page_title="Crammphibian", page_icon="🐸", layout="wide")
 settings = Settings()
 
 
@@ -30,7 +30,7 @@ def get_index(name: str) -> StudyIndex:
 
 # ---------------- sidebar: courses, files, model ----------------
 with st.sidebar:
-    st.title("📚 Study Search")
+    st.title("🐸 Crammphibian")
 
     existing = collections()
     options = existing + ["➕ New course…"]
