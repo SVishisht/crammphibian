@@ -25,7 +25,9 @@ answer **cited to the exact page or slide**, running entirely on your own comput
 - **Search-only mode** to jump straight to the right slide without an AI answer.
 - **Runs on modest laptops.** A lite setup needs under 1 GB of RAM.
 - **Crammy, your study frog.** A pixel-art frog lives in the corner, gives tips,
-  thinks while the model works and cheers your quiz scores.
+  thinks while the model works and cheers your quiz scores. [Meet Crammy ↓](#meet-crammy)
+
+<p align="center"><img src="docs/crammy.gif" alt="Crammy the pixel frog giving a tip, getting tickled, then thinking and talking while an answer comes in" width="440"></p>
 
 ## Install (about 5 minutes, once)
 
@@ -64,6 +66,7 @@ Your browser opens at http://localhost:8501.
 2. Drop in your PDFs and `.pptx` files and click **Add to course**.
 3. Pick a mode at the top. Use **Files to use** to focus on one lecture.
    Open **Sources** under each answer to see the exact passages.
+4. Stuck? Click Crammy, the frog in the bottom-right corner, for a tip.
 
 | Quiz me | Flashcards |
 |---|---|
@@ -97,8 +100,6 @@ then turn on **Use cloud model** in the sidebar. Search still runs locally, but 
 question and the matching excerpts are sent to the API.
 
 ## Meet Crammy
-
-![Crammy reacting to hovers, clicks and an answer coming in](docs/crammy.gif)
 
 Crammy sits on a lily pad in the bottom-right corner, like an old-school desktop
 assistant but smaller and greener.
