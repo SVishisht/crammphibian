@@ -1,0 +1,215 @@
+/* Crammy the frog: the companion that lives in the bottom-right corner. */
+#crammy {
+  --px: 3px;                      /* one sprite pixel on screen */
+  --ink: #1e4226;
+  --paper: #fffef7;
+  --leaf: #3fa34d;
+  position: fixed;
+  right: 18px;
+  bottom: 10px;
+  z-index: 999990;
+  width: calc(48 * var(--px));
+  font-family: "Source Sans Pro", "Source Sans 3", system-ui, sans-serif;
+  color: var(--ink);
+  pointer-events: none;           /* only the frog and bubble take clicks */
+  user-select: none;
+}
+#crammy * { box-sizing: border-box; }
+
+/* ---------- frog ---------- */
+.crammy-frog {
+  pointer-events: auto;
+  position: relative;
+  display: block;
+  width: 100%;
+  height: calc(38 * var(--px));
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: grab;
+  touch-action: none;
+  outline: none;
+}
+.crammy-frog:focus-visible { outline: 3px dashed var(--leaf); outline-offset: 4px; }
+#crammy.is-dragging .crammy-frog { cursor: grabbing; }
+.crammy-sprite, .crammy-pad {
+  position: absolute;
+  left: 50%;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  pointer-events: none;
+}
+.crammy-pad {
+  bottom: 0;
+  width: calc(48 * var(--px));
+  height: calc(12 * var(--px));
+  transform: translateX(-50%);
+}
+.crammy-sprite {
+  bottom: calc(5 * var(--px));
+  width: calc(32 * var(--px));
+  height: calc(32 * var(--px));
+  transform: translateX(-50%);
+  transform-origin: 50% 100%;
+  animation: crammy-breathe 1.6s steps(1) infinite;
+}
+#crammy.is-busy .crammy-sprite { animation-duration: .7s; }
+#crammy.is-asleep .crammy-sprite, #crammy.is-napping .crammy-sprite { animation-duration: 3s; }
+
+@keyframes crammy-breathe {
+  0%   { transform: translateX(-50%) translateY(0); }
+  50%  { transform: translateX(-50%) translateY(calc(-1 * var(--px))); }
+}
+#crammy .crammy-frog.hop .crammy-sprite { animation: crammy-hop .55s cubic-bezier(.3, 0, .4, 1); }
+@keyframes crammy-hop {
+  0%   { transform: translateX(-50%) scale(1.08, .88); }
+  25%  { transform: translateX(-50%) translateY(calc(-9 * var(--px))) scale(.94, 1.08); }
+  55%  { transform: translateX(-50%) translateY(calc(-11 * var(--px))) scale(1, 1); }
+  85%  { transform: translateX(-50%) translateY(0) scale(1.1, .86); }
+  100% { transform: translateX(-50%) translateY(0) scale(1, 1); }
+}
+#crammy .crammy-frog.perk .crammy-sprite { animation: crammy-perk .35s steps(3); }
+@keyframes crammy-perk {
+  50% { transform: translateX(-50%) translateY(calc(-3 * var(--px))); }
+}
+#crammy .crammy-frog.shiver .crammy-sprite { animation: crammy-shiver .5s steps(6); }
+@keyframes crammy-shiver {
+  25% { transform: translateX(calc(-50% - var(--px))); }
+  75% { transform: translateX(calc(-50% + var(--px))); }
+}
+#crammy .crammy-frog.land .crammy-sprite { animation: crammy-land .3s ease-out; }
+@keyframes crammy-land {
+  0% { transform: translateX(-50%) scale(1.15, .8); }
+}
+#crammy.is-dragging .crammy-sprite { animation: none; transform: translateX(-50%) translateY(calc(-4 * var(--px))) rotate(-6deg); }
+
+/* napping: sinks behind the lily pad, eyes peeking out */
+#crammy.is-napping .crammy-sprite { bottom: calc(-13 * var(--px)); clip-path: inset(0 0 45% 0); }
+#crammy.is-napping .crammy-frog { cursor: pointer; }
+
+/* ---------- speech bubble ---------- */
+.crammy-bubble {
+  pointer-events: auto;
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 14px);
+  width: min(300px, calc(100vw - 40px));
+  padding: 10px 14px 12px;
+  background: var(--paper);
+  font-size: 15px;
+  line-height: 1.4;
+  user-select: text;
+  /* pixel border with notched corners, plus a hard drop shadow */
+  box-shadow:
+    0 -3px 0 0 var(--ink), 0 3px 0 0 var(--ink), -3px 0 0 0 var(--ink), 3px 0 0 0 var(--ink),
+    0 9px 0 0 rgba(30, 66, 38, .18);
+}
+.crammy-bubble[hidden] { display: none; }
+.crammy-bubble.pop { animation: crammy-pop .22s steps(3); }
+@keyframes crammy-pop { 0% { transform: scale(.6); opacity: 0; } }
+.crammy-bubble { transform-origin: 85% 100%; }
+#crammy.on-left .crammy-bubble { right: auto; left: 0; transform-origin: 15% 100%; }
+#crammy.on-top .crammy-bubble { bottom: auto; top: calc(100% + 14px); }
+
+/* tail: three stacked pixel steps pointing at the frog */
+.crammy-bubble::after, .crammy-bubble::before {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 9px;
+}
+.crammy-bubble::before { right: 52px; bottom: -12px; background: var(--ink); width: 15px; }
+.crammy-bubble::after  { right: 55px; bottom: -9px; background: var(--paper); width: 9px; height: 6px; }
+#crammy.on-left .crammy-bubble::before { right: auto; left: 52px; }
+#crammy.on-left .crammy-bubble::after  { right: auto; left: 55px; }
+#crammy.on-top .crammy-bubble::before, #crammy.on-top .crammy-bubble::after { display: none; }
+
+.crammy-name {
+  font-family: "Pixelify Sans", monospace;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--leaf);
+  margin-bottom: 2px;
+}
+.crammy-text { min-height: 1.4em; overflow-wrap: anywhere; }
+.crammy-close {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  border: 0;
+  background: none;
+  font: 700 18px/1 "Pixelify Sans", monospace;
+  color: var(--ink);
+  opacity: .55;
+  cursor: pointer;
+}
+.crammy-close:hover { opacity: 1; }
+
+.crammy-actions { display: none; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+.crammy-bubble.has-actions .crammy-actions { display: flex; }
+.crammy-actions button {
+  font: 600 12px/1 "Pixelify Sans", monospace;
+  letter-spacing: .03em;
+  padding: 6px 8px 5px;
+  background: #eaf6df;
+  color: var(--ink);
+  border: 0;
+  cursor: pointer;
+  box-shadow: 0 -2px 0 0 var(--ink), 0 2px 0 0 var(--ink), -2px 0 0 0 var(--ink), 2px 0 0 0 var(--ink), 0 4px 0 0 var(--ink);
+  transition: transform .05s steps(1);
+}
+.crammy-actions button:hover { background: #d4efc4; }
+.crammy-actions button:active { transform: translateY(2px); box-shadow: 0 -2px 0 0 var(--ink), 0 2px 0 0 var(--ink), -2px 0 0 0 var(--ink), 2px 0 0 0 var(--ink); }
+
+/* thinking: a smaller bubble with animated dots */
+.crammy-bubble.is-thinking { width: max-content; max-width: 280px; font-style: italic; padding-right: 30px; }
+.crammy-bubble.is-thinking .crammy-text { white-space: nowrap; }
+.crammy-bubble.is-thinking .crammy-close { display: none; }
+.crammy-bubble.is-thinking .crammy-text::after {
+  content: "";
+  display: inline-block;
+  width: 1.2em;
+  text-align: left;
+  animation: crammy-dots 1.2s steps(4) infinite;
+}
+@keyframes crammy-dots {
+  0% { content: ""; } 25% { content: "."; } 50% { content: ".."; } 75% { content: "..."; }
+}
+
+/* ---------- particles ---------- */
+.crammy-fx { position: absolute; left: 0; right: 0; bottom: calc(30 * var(--px)); height: 0; }
+.crammy-p { position: absolute; bottom: 0; animation: crammy-float 1.5s ease-out forwards; opacity: 0; }
+@keyframes crammy-float {
+  0%   { opacity: 0; transform: translate(0, 0); }
+  15%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--drift), -70px); }
+}
+/* 5x4 pixel heart drawn with box-shadows */
+.crammy-p-heart { width: 3px; height: 3px; }
+.crammy-p-heart::before {
+  content: "";
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  box-shadow:
+    3px 0 #f26d8c, 9px 0 #f26d8c,
+    0 3px #f26d8c, 3px 3px #ff9fb4, 6px 3px #f26d8c, 9px 3px #f26d8c, 12px 3px #f26d8c,
+    3px 6px #f26d8c, 6px 6px #f26d8c, 9px 6px #f26d8c,
+    6px 9px #f26d8c;
+}
+.crammy-p-z {
+  font: 700 16px/1 "Pixelify Sans", monospace;
+  color: var(--ink);
+  animation-duration: 2.2s;
+}
+.crammy-p-z::before { content: "z"; }
+
+@media (max-width: 640px) {
+  #crammy { --px: 2px; right: 8px; bottom: 140px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #crammy *, #crammy *::before, #crammy *::after { animation: none !important; transition: none !important; }
+}
+@media print { #crammy { display: none; } }

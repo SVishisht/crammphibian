@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "crammphibian"
-version = "0.2.0"
+version = "0.3.0"
 description = "Ask questions across your lecture PDFs and PowerPoints, answered locally with citations."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -32,4 +32,4 @@ cramm = "crammphibian.cli:main"
 packages = ["crammphibian"]
 
 [tool.setuptools.package-data]
-crammphibian = ["assets/*"]
+crammphibian = ["assets/*", "assets/frog/*", "assets/fonts/*"]

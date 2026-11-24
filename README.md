@@ -6,7 +6,7 @@
 then ask questions, make revision notes, quiz yourself and build flashcards, every
 answer **cited to the exact page or slide**, running entirely on your own computer.
 
-![Asking a question](docs/ask.png)
+![Asking a question, with Crammy the frog in the corner](docs/ask.png)
 
 > "Explain the Krebs cycle step by step" → an answer built only from your notes,
 > citing *Biology Lecture 3.pdf, p. 2* and *Week 4 slides.pptx, slide 7*.
@@ -24,6 +24,8 @@ answer **cited to the exact page or slide**, running entirely on your own comput
   - 🃏 **Flashcards**: flip cards, exportable to Anki or Quizlet (CSV)
 - **Search-only mode** to jump straight to the right slide without an AI answer.
 - **Runs on modest laptops.** A lite setup needs under 1 GB of RAM.
+- **Crammy, your study frog.** A pixel-art frog lives in the corner, gives tips,
+  thinks while the model works and cheers your quiz scores.
 
 ## Install (about 5 minutes, once)
 
@@ -66,6 +68,8 @@ Your browser opens at http://localhost:8501.
 | Quiz me | Flashcards |
 |---|---|
 | ![Quiz](docs/quiz.png) | ![Flashcards](docs/flashcards.png) |
+| **Notes** | **Welcome** |
+| ![Notes](docs/notes.png) | ![Welcome](docs/welcome.png) |
 
 There's also a command line:
 
@@ -92,12 +96,31 @@ an OpenAI model instead: `.venv/bin/pip install -e ".[cloud]"`, set `OPENAI_API_
 then turn on **Use cloud model** in the sidebar. Search still runs locally, but your
 question and the matching excerpts are sent to the API.
 
-## Your mascot
+## Meet Crammy
 
-Put a square PNG at `crammphibian/assets/mascot.png` and it becomes the logo,
-tab icon and answer avatar. Until then it's 🐸.
+![Crammy reacting to hovers, clicks and an answer coming in](docs/crammy.gif)
 
-## Limitations (v0.2)
+Crammy sits on a lily pad in the bottom-right corner, like an old-school desktop
+assistant but smaller and greener.
+
+- **Click** for a study tip (tips change with the mode you're in). Click a lot and find out.
+- **Hover** and Crammy perks up. **Drag** to move; **double-click** to send it home.
+- **Thinks** while your notes are searched and **talks** while an answer streams in.
+- **Reacts** to quiz scores, finished notes and flashcards, and errors (e.g. Ollama not running).
+- **Dozes off** after a minute of no activity. **Nap** (in the speech bubble) tucks it
+  behind the lily pad until you click it.
+- **Sound** is off by default; turn on tiny croaks in the speech bubble.
+- Respects your system's *reduce motion* setting.
+
+![Crammy's moods](docs/crammy-moods.png)
+
+**Use your own frog.** Replace the PNGs in `crammphibian/assets/frog/` (idle, blink,
+talk, think, happy, sad, sleep, and optionally lilypad), keeping the file names, then
+restart. Pixel art stays crisp; animated GIFs work too. Details in
+[`crammphibian/assets/frog/README.md`](crammphibian/assets/frog/README.md).
+A square `crammphibian/assets/mascot.png` still works as the logo, tab icon and avatar.
+
+## Limitations (v0.3)
 
 - Old `.ppt` files: save them as `.pptx` or PDF first.
 - Scanned PDFs (images of pages) have no text to read; OCR isn't supported yet.
@@ -123,7 +146,7 @@ PDF pages / slides ──► text per page/slide ──► ~1000-char chunks
 
 Code: `crammphibian/loaders.py` (PDF/PPTX parsing), `index.py` (hybrid search,
 saved per course), `qa.py` (RAG prompt), `study.py` (notes, quizzes, flashcards),
-`app.py` (Streamlit UI), `cli.py`.
+`app.py` (Streamlit UI), `companion.py` + `assets/companion.*` (Crammy), `cli.py`.
 
 ## Development
 
@@ -133,3 +156,5 @@ saved per course), `qa.py` (RAG prompt), `study.py` (notes, quizzes, flashcards)
 ```
 
 Tests use stand-in embeddings and a fake chat model, so they run without Ollama.
+
+Credits: pixel font [Pixelify Sans](https://github.com/eifetx/Pixelify-Sans), SIL Open Font License.
