@@ -34,9 +34,9 @@ answer **cited to the exact page or slide**, running entirely on your own comput
 I started Crammphibian in my second year. I was juggling a pile of new subjects,
 and at the same time I'd just discovered RAG (retrieval-augmented generation) and
 couldn't stop thinking about it. So I decided to build a RAG project that wasn't
-just a demo, but something that would actually help me get through my own studying.
+simply a demo, but something that would actually help me get through a bit of my own studying.
 
-When I came back to it later, I gave it a fresh coat of paint (and a frog friend)
+When I came back to it later, I gave it a fresh coat of paint (and a frog friend, because I like frogs lmao)
 and put it on GitHub. If you're staring down a stack of slides before an exam,
 I hope it helps you the way it helped me. Feel free to use it, share it with your
 classmates, or open an issue if something could be better. Happy cramming! 🐸
