@@ -35,7 +35,7 @@ I started Crammphibian in my second year. I was juggling a pile of new subjects 
 and at the same time I'd just discovered the concept of RAG (retrieval-augmented generation) and
 decided to build a project that would help me get through a bit of my own studying. 
 
-Made some few edits to the projects based on my usage over time, then I gave it a fresh coat of paint (and a frog friend, because I like frogs lmao)
+Made a few edits to the project over time, then I gave it a fresh coat of paint (and a frog friend, because I like frogs lmao)
 and put it on GitHub. If you're staring down a stack of slides before an exam,
 I hope it helps you the way it helped me. Feel free to use it, share it with your
 classmates, or open an issue if something could be better. Have fun cramming!
