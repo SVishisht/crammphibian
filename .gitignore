@@ -4,3 +4,4 @@ __pycache__/
 .pytest_cache/
 start.sh
 start.bat
+build/
