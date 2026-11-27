@@ -1,4 +1,4 @@
-# 🐸 Crammphibian
+# Crammphibian
 
 [![tests](https://github.com/SVishisht/crammphibian/actions/workflows/tests.yml/badge.svg)](https://github.com/SVishisht/crammphibian/actions/workflows/tests.yml)
 
@@ -18,10 +18,10 @@ answer **cited to the exact page or slide**, running entirely on your own comput
 - **One course per subject.** Keep BIO 101 and ECON 200 separate; indexes are
   saved, so you only add files once.
 - **Four study modes:**
-  - 💬 **Ask**: chat with your notes, with follow-up questions
-  - 📝 **Notes**: revision notes (key ideas, terms, formulas, likely exam questions), downloadable as Markdown
-  - 🧠 **Quiz me**: multiple-choice questions with scoring and the page each answer comes from
-  - 🃏 **Flashcards**: flip cards, exportable to Anki or Quizlet (CSV)
+  - **Ask**: chat with your notes, with follow-up questions
+  - **Notes**: revision notes (key ideas, terms, formulas, likely exam questions), downloadable as Markdown
+  - **Quiz me**: multiple-choice questions with scoring and the page each answer comes from
+  - **Flashcards**: flip cards, exportable to Anki or Quizlet (CSV)
 - **Search-only mode** to jump straight to the right slide without an AI answer.
 - **Runs on modest laptops.** A lite setup needs under 1 GB of RAM.
 - **Crammy, your study frog.** A pixel-art frog lives in the corner, gives tips,
@@ -31,15 +31,14 @@ answer **cited to the exact page or slide**, running entirely on your own comput
 
 ## Why I built this
 
-I started Crammphibian in my second year. I was juggling a pile of new subjects,
-and at the same time I'd just discovered RAG (retrieval-augmented generation) and
-couldn't stop thinking about it. So I decided to build a RAG project that wasn't
-simply a demo, but something that would actually help me get through a bit of my own studying.
+I started Crammphibian in my second year. I was juggling a pile of new subjects (and the myriad of study material that came along with it),
+and at the same time I'd just discovered the concept of RAG (retrieval-augmented generation) and
+decided to build a project that would help me get through a bit of my own studying. 
 
-When I came back to it later, I gave it a fresh coat of paint (and a frog friend, because I like frogs lmao)
+Made some few edits to the projects based on my usage over time, then I gave it a fresh coat of paint (and a frog friend, because I like frogs lmao)
 and put it on GitHub. If you're staring down a stack of slides before an exam,
 I hope it helps you the way it helped me. Feel free to use it, share it with your
-classmates, or open an issue if something could be better. Happy cramming! 🐸
+classmates, or open an issue if something could be better. Have fun cramming!
 
 ## Install (about 5 minutes, once)
 
@@ -167,7 +166,5 @@ saved per course), `qa.py` (RAG prompt), `study.py` (notes, quizzes, flashcards)
 .venv/bin/pip install -e ".[dev]"
 .venv/bin/pytest
 ```
-
-Tests use stand-in embeddings and a fake chat model, so they run without Ollama.
 
 Credits: pixel font [Pixelify Sans](https://github.com/eifetx/Pixelify-Sans), SIL Open Font License.
